@@ -1,3 +1,4 @@
+// https://learn.javascript.ru/task/random-int-min-max
 function randomInteger(min, max) {
   if (min < 0 || max < 0 || max <= min) {
     return null;
