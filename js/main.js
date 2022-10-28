@@ -3,10 +3,11 @@ function randomInteger(min, max) {
   if (min < 0 || max < 0 || max <= min) {
     return null;
   }
-  let rand = min + Math.random() * (max + 1 - min);
+  const rand = min + Math.random() * (max + 1 - min);
   return Math.floor(rand);
 }
 
+// eslint-disable-next-line no-unused-vars
 function checkForMaxLength(testString, maxLength) {
   return testString.legth <= maxLength;
 }
@@ -56,9 +57,7 @@ const arrayID = [];
 const arrayIDComments = [];
 const arrayURL = [];
 
-const getRandomArrayElement = (elements) => {
-  return elements[randomInteger(0, elements.length - 1)];
-};
+const getRandomArrayElement = (elements) => elements[randomInteger(0, elements.length - 1)];
 
 const getNewID = () => {
   let newId = randomInteger(1, 25);
@@ -90,12 +89,12 @@ const getNewURL = () => {
 };
 
 const createComments = (sizeOfArray) => {
-  let arrayOfComments = [];
+  const arrayOfComments = [];
 
   for (let i = 0; i < sizeOfArray; i++) {
-    let comment = {
+    const comment = {
       id: getNewIDComment(),
-      avatar: 'img/avatar-' + randomInteger(1,6) + '.svg',
+      avatar: `img/avatar-${  randomInteger(1,6)  }.svg`,
       message: getRandomArrayElement(MESSAGES),
       name: getRandomArrayElement(NAMES),
     };
@@ -104,17 +103,16 @@ const createComments = (sizeOfArray) => {
   return arrayOfComments;
 };
 
-const createDescription = () => {
-  return {
-    id: getNewID(),
-    url: 'photos/' + getNewURL() + '.jpg',
-    description: getRandomArrayElement(DESCRIPTIONS),
-    likes: randomInteger(15, 200),
-    comments: createComments(randomInteger(1,2)),
-  };
-};
+const createDescription = () => ({
+  id: getNewID(),
+  url: `photos/${  getNewURL()  }.jpg`,
+  description: getRandomArrayElement(DESCRIPTIONS),
+  likes: randomInteger(15, 200),
+  comments: createComments(randomInteger(1,2)),
+});
 
 const similarDescription = Array.from({length: COUNT_OF_PHOTO_DESCRIPTION}, createDescription);
 for (let i = 0; i < 25; i++) {
-  console.log(similarDescription[i])
+  // eslint-disable-next-line no-console
+  console.log(similarDescription[i]);
 }
