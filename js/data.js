@@ -1,4 +1,4 @@
-import {randomInteger} from './util.js'
+import {randomInteger} from './util.js';
 
 const NAMES = [
   'Дима',
@@ -44,9 +44,7 @@ const arrayID = [];
 const arrayIDComments = [];
 const arrayURL = [];
 
-const getRandomArrayElement = (elements) => {
-  return elements[randomInteger(0, elements.length - 1)];
-};
+const getRandomArrayElement = (elements) => elements[randomInteger(0, elements.length - 1)];
 
 const getNewID = () => {
   let newId = randomInteger(1, 25);
@@ -78,12 +76,12 @@ const getNewURL = () => {
 };
 
 const createComments = (sizeOfArray) => {
-  let arrayOfComments = [];
+  const arrayOfComments = [];
 
   for (let i = 0; i < sizeOfArray; i++) {
-    let comment = {
+    const comment = {
       id: getNewIDComment(),
-      avatar: 'img/avatar-' + randomInteger(1,6) + '.svg',
+      avatar: `img/avatar-${  randomInteger(1,6)  }.svg`,
       message: getRandomArrayElement(MESSAGES),
       name: getRandomArrayElement(NAMES),
     };
@@ -92,15 +90,13 @@ const createComments = (sizeOfArray) => {
   return arrayOfComments;
 };
 
-const createDescription = () => {
-  return {
-    id: getNewID(),
-    url: 'photos/' + getNewURL() + '.jpg',
-    description: getRandomArrayElement(DESCRIPTIONS),
-    likes: randomInteger(15, 200),
-    comments: createComments(randomInteger(1,2)),
-  };
-};
+const createDescription = () => ({
+  id: getNewID(),
+  url: `photos/${  getNewURL()  }.jpg`,
+  description: getRandomArrayElement(DESCRIPTIONS),
+  likes: randomInteger(15, 200),
+  comments: createComments(randomInteger(1,2)),
+});
 
 const COUNT_OF_PHOTO_DESCRIPTION = 25;
 
