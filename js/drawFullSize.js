@@ -6,7 +6,6 @@ const bigPictureCancel = bigPicture.querySelector('.big-picture__cancel');
 document.addEventListener('keydown', (evt) => {
   if (evt.keyCode === 27) {
     bigPicture.classList.add('hidden');
-    document.body.classList.remove('modal-open');
   }
 });
 
