@@ -10,29 +10,17 @@ const radios = document.querySelectorAll('input[name="effect"]');
 const hashtag = document.querySelector('.text__hashtags');
 const comment = document.querySelector('.text__description');
 
+
 let valueOfTransform = 1;
 let currentEffect = 'original';
 
-imgUploadCancel.addEventListener('click', () => {
-  imgUploadOverlay.classList.add('hidden');
-  document.body.classList.remove('modal-open');
-  imgUploadInput.value = '';
-});
-
-document.addEventListener('keydown', (evt) => {
-  if (evt.keyCode === 27) {
-    imgUploadOverlay.classList.add('hidden');
-    document.body.classList.remove('modal-open');
-    imgUploadInput.value = '';
-  }
-});
-
-const showImgUpload = () => {
-  imgUploadOverlay.classList.remove('hidden');
-  document.body.classList.add('modal-open');
+const setEffect = (evt) => {
+  img.classList.remove(`effects__preview--${currentEffect}`);
+  img.classList.add(`effects__preview--${evt.target.value}`);
+  currentEffect = evt.target.value;
 };
 
-smaller.addEventListener('click', () => {
+const funSmaller =  () => {
   switch (scaleValue.value) {
     case '100%':
       scaleValue.value = '75%';
@@ -50,9 +38,9 @@ smaller.addEventListener('click', () => {
       break;
   }
   img.style.transform = `scale(${valueOfTransform})`;
-});
+};
 
-bigger.addEventListener('click', () => {
+const funBigger = () => {
   switch (scaleValue.value) {
     case '25%':
       scaleValue.value = '50%';
@@ -70,25 +58,47 @@ bigger.addEventListener('click', () => {
       break;
   }
   img.style.transform = `scale(${valueOfTransform})`;
-});
-
-const setEffect = (effect) => {
-  img.classList.remove(`effects__preview--${currentEffect}`);
-  img.classList.add(`effects__preview--${effect}`);
-  currentEffect = effect;
 };
 
-radios.forEach((radio) => {
-  radio.addEventListener('input', () => {
-    setEffect(radio.value);
+const closeImgUpload = () => {
+  imgUploadOverlay.classList.add('hidden');
+  document.body.classList.remove('modal-open');
+  imgUploadInput.value = '';
+  radios.forEach((radio) => {
+    radio.removeEventListener('input', setEffect);
   });
-});
+  smaller.removeEventListener('click', funSmaller);
+  bigger.removeEventListener('click', funBigger);
+  document.body.removeEventListener('keydown', escImgUpload);
+  imgUploadCancel.removeEventListener('click', closeImgUpload);
+};
+
+function escImgUpload(evt) {
+  if (evt.keyCode === 27) {
+    closeImgUpload();
+  }
+}
+
+const showImgUpload = () => {
+  imgUploadOverlay.classList.remove('hidden');
+  document.body.classList.add('modal-open');
+  imgUploadCancel.addEventListener('click', closeImgUpload);
+  document.body.addEventListener('keydown', escImgUpload);
+};
 
 const fun = (evt) => {
   if (evt.keyCode === 27) {
     evt.stopPropagation();
   }
 };
+
+smaller.addEventListener('click', funSmaller);
+
+bigger.addEventListener('click', funBigger);
+
+radios.forEach((radio) => {
+  radio.addEventListener('input', setEffect);
+});
 
 hashtag.addEventListener('focus', () => {
   hashtag.addEventListener('keydown', fun);
