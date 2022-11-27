@@ -95,7 +95,7 @@ const createDescription = () => ({
   url: `photos/${  getNewURL()  }.jpg`,
   description: getRandomArrayElement(DESCRIPTIONS),
   likes: randomInteger(15, 200),
-  comments: createComments(randomInteger(1,2)),
+  comments: createComments(randomInteger(1,20)),
 });
 
 const COUNT_OF_PHOTO_DESCRIPTION = 25;
