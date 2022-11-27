@@ -14,6 +14,7 @@ const effectLevelValue = document.querySelector('input[name="effect-level"]');
 const slider = effectLevel.querySelector('.effect-level__slider');
 
 effectLevelValue.value = 0;
+
 let valueOfTransform = 1;
 let currentEffect = 'none';
 const filters = ['grayscale', 'sepia', 'invert', 'blur', 'brightness'];
