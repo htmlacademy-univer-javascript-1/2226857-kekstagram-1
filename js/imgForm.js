@@ -285,6 +285,22 @@ const closeImgUpload = () => {
   img.classList.remove(`effects__preview--${currentEffect}`);
   img.style.transform = 'scale(1)';
   scaleValue.value = '100%';
+  comment.value = '';
+  hashtag.value = '';
+  document.querySelector('input[value="none"]').checked = true;
+};
+
+const closeImgUploadWithSaving = () => {
+  imgUploadOverlay.classList.add('hidden');
+  document.body.classList.remove('modal-open');
+  imgUploadInput.value = '';
+  radios.forEach((radio) => {
+    radio.removeEventListener('input', setEffect);
+  });
+  smaller.removeEventListener('click', funSmaller);
+  bigger.removeEventListener('click', funBigger);
+  document.body.removeEventListener('keydown', escImgUpload);
+  imgUploadCancel.removeEventListener('click', closeImgUpload);
 };
 
 function escImgUpload(evt) {
@@ -323,3 +339,5 @@ const showImgUpload = () => {
 };
 
 imgUploadInput.addEventListener('change', showImgUpload);
+
+export {closeImgUpload, closeImgUploadWithSaving};
