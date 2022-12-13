@@ -12,6 +12,9 @@ const comment = document.querySelector('.text__description');
 const effectLevel = document.querySelector('.img-upload__effect-level');
 const effectLevelValue = document.querySelector('input[name="effect-level"]');
 const slider = effectLevel.querySelector('.effect-level__slider');
+const previews = document.querySelectorAll('.effects__preview');
+
+const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
 effectLevelValue.value = 0;
 
@@ -315,6 +318,19 @@ const fun = (evt) => {
   }
 };
 const showImgUpload = () => {
+  const file = imgUploadInput.files[0];
+  const fileName = file.name.toLowerCase();
+
+  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+
+  if (matches) {
+    img.src = URL.createObjectURL(file);
+  }
+
+  for (const preview of previews) {
+    preview.style.backgroundImage = `url(${img.src})`;
+  }
+
   imgUploadOverlay.classList.remove('hidden');
   document.body.classList.add('modal-open');
   imgUploadCancel.addEventListener('click', closeImgUpload);
