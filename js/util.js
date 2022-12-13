@@ -1,17 +1,3 @@
-// https://learn.javascript.ru/task/random-int-min-max
-function randomInteger(min, max) {
-  if (min < 0 || max < 0 || max <= min) {
-    return null;
-  }
-  const rand = min + Math.random() * (max + 1 - min);
-  return Math.floor(rand);
-}
-
-// eslint-disable-next-line no-unused-vars
-function checkForMaxLength(testString, maxLength) {
-  return testString.legth <= maxLength;
-}
-
 const ALERT_SHOW_TIME = 5000;
 
 const showAlert = (message) => {
@@ -35,5 +21,25 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
+// Функция взята из интернета и доработана
+// Источник - https://www.freecodecamp.org/news/javascript-debounce-example
 
-export {randomInteger, showAlert};
+const debounce = (callback, timeoutDelay = 500) => {
+  // Используем замыкания, чтобы id таймаута у нас навсегда приклеился
+  // к возвращаемой функции с setTimeout, тогда мы его сможем перезаписывать
+  let timeoutId;
+
+  return (...rest) => {
+    // Перед каждым новым вызовом удаляем предыдущий таймаут,
+    // чтобы они не накапливались
+    clearTimeout(timeoutId);
+
+    // Затем устанавливаем новый таймаут с вызовом колбэка на ту же задержку
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+
+    // Таким образом цикл «поставить таймаут - удалить таймаут» будет выполняться,
+    // пока действие совершается чаще, чем переданная задержка timeoutDelay
+  };
+};
+
+export {showAlert, debounce};
