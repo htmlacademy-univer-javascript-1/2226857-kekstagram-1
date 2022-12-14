@@ -1,22 +1,20 @@
-import './drawThumbnail.js';
-import './drawFullSize.js';
-import './validForm.js';
-import './imgForm.js';
-import {createPictures, setDefaultClick, setDiscussedClick, setRandomClick} from './drawThumbnail.js';
+import './draw-thumbnail.js';
+import './draw-full-size.js';
+import './valid-form.js';
+import './img-form.js';
+import {createAllPictures, createDefaultButton, createDiscussedButton, createRandomButton, } from './draw-thumbnail.js';
 import {getData} from './api.js';
 import { debounce, showAlert } from './util.js';
 
-
 getData((pictures) => {
-  createPictures(pictures, 'default');
-  setDefaultClick(debounce(
-    () => createPictures(pictures, 'default'),
+  createAllPictures(pictures, 'default');
+  createDefaultButton(debounce(
+    () => createAllPictures(pictures, 'default'),
   ));
-  setDiscussedClick(debounce(
-    () => createPictures(pictures, 'discussed'),
+  createDiscussedButton(debounce(
+    () => createAllPictures(pictures, 'discussed'),
   ));
-  setRandomClick(debounce(
-    () => createPictures(pictures, 'random'),
+  createRandomButton(debounce(
+    () => createAllPictures(pictures, 'random'),
   ));
 }, showAlert);
-document.querySelector('.img-filters').classList.remove('img-filters--inactive');
